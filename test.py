@@ -6,29 +6,38 @@ from keras.optimizers import SGD
 from keras.preprocessing import text
 import  json,re
 from wordsutil import keywordsmg as KeywordsUtil
-kewords="""{"language": ["aspnet"], "ip": ["119.10.63.75"], "component": [{"version": "none", "type": "asp.net"}], "site": "119.10.63.75:80", "headers": {"content-length": "1471", "content-encoding": "gzip", "accept-ranges": "bytes", "x-powered-by": "asp.net", "vary": "accept-encoding", "server": "microsoft-iis/8.0", "last-modified": "sat, 20 sep 2014 23:55:09 gmt", "etag": "5ee2634f2ed5cf1:0", "date": "fri, 10 jun 2016 07:27:09 gmt", "content-type": "text/html"}, "geoip": {"city": {"name": "beijing"}, "location": {"latitude": 39.9289, "longitude": 116.3883}, "continent": {"code": "as", "name": "asia"}, "country": {"code": "cn", "name": "china"}}}"""
-lableary=KeywordsUtil.getkeyword(kewords)
-# print lableary
-from DButil import db
-sql='select count(*) from testdata '
+# kewords="""{'frontend': [{'version': u'1.8.3.', 'type': 'jquery'}], 'language': ['php'], 'ip': ['120.24.54.128'], 'component': [{'version': '5.5.7', 'type': 'php'}], 'site': '120.24.54.128:80', 'headers': {'content-encoding': 'gzip', 'x-powered-by': 'php/5.5.7', 'transfer-encoding': 'chunked', 'set-cookie': 'phpmyadmin=nichkemnqavf60r88ccelcda4ab86sm5; path=/; httponly, pma_lang=en; expires=mon, 08-aug-2016 11:55:19 gmt; max-age=2592000; path=/; httponly, pma_mcrypt_iv=mgmgtfvyqxe%3d; expires=mon, 08-aug-2016 11:55:19 gmt; max-age=2592000; path=/; httponly, phpmyadmin=jevkc8kggkqd1ooer5ku505632g2jb35; path=/; httponly', 'expires': 'sat, 09 jul 2016 19:55:19 +0800', 'vary': 'accept-encoding', 'server': 'nginx/1.2.5', 'last-modified': 'sat, 09 jul 2016 19:55:19 +0800', 'connection': 'keep-alive', 'x-ob_mode': '0', 'pragma': 'no-cache', 'cache-control': 'no-store, no-cache, must-revalidate,  pre-check=0, post-check=0, max-age=0', 'date': 'sat, 09 jul 2016 11:55:19 gmt', 'x-frame-options': 'deny', 'x-content-security-policy': "default-src 'self' https://www.google.com ;options inline-script eval-script;img-src 'self' data:  *.tile.openstreetmap.org *.tile.opencyclemap.org https://www.google.com;", 'content-type': 'text/html; charset=utf-8', 'x-webkit-csp': "default-src 'self' https://www.google.com ;script-src 'self' https://www.google.com  'unsafe-inline' 'unsafe-eval';style-src 'self' 'unsafe-inline' https://www.google.com ;img-src 'self' data:  *.tile.openstreetmap.org *.tile.opencyclemap.org https://www.google.com;"}, 'geoip': {'city': {'name': u'beijing'}, 'location': {'latitude': 39.9289, 'longitude': 116.3883}, 'continent': {'code': u'as', 'name': u'asia'}, 'country': {'code': u'cn', 'name': u'china'}}}"""
+# lableary=KeywordsUtil.getkeyword(kewords)
 
-size=db.get(sql)['count(*)']
-for i in xrange(size):
-    sql = 'select ip,port,keywords from testdata limit %d,1' % i
-    result=db.get(sql)
-    ip= result['ip']
-    port=result['port']
-    keywords=result['keywords']
-    print type(keywords)
-    newwords= KeywordsUtil.getkeyword(str(keywords))
-    print i, ip, port, keywords
-    print newwords
-    newwords=",".join(map(str, newwords))
-    print newwords
-    sql ="update  testdata set label = '%s' where ip = '%s' and port = %s" %(newwords,ip,port)
-    result=db.execute(sql)
-    if 0== result:
-        print 'success'
+msg=""": 'sdfsd"sdf"sdfs'}"""
+regex=": (\'.*?(!\")\".*?\".*?\')}"
+reobj = re.compile(regex)
+match = reobj.findall(msg)
+if match:
+    for i in match:
+        print i
+
+
+
+
+
+# size=db.get(sql)['count(*)']
+# for i in xrange(size):
+#     sql = 'select ip,port,keywords from testdata limit %d,1' % i
+#     result=db.get(sql)
+#     ip= result['ip']
+#     port=result['port']
+#     keywords=result['keywords']
+#     newwords= KeywordsUtil.getkeyword(str(keywords))
+#     print i, ip, port, keywords
+#
+#     newwords=",".join(map(str, newwords))
+#     print newwords
+#     sql ="update  testdata set label = '%s' where ip = '%s' and port = %s" %(newwords,ip,port)
+#     print sql
+#     result=db.execute(sql)
+#     if 0== result:
+#         print 'success'
 
 
 

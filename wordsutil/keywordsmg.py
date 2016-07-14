@@ -46,10 +46,17 @@ def getheaders(jsonobj,label):
         elif i=='last-modified':
             pass
         elif i=='set-cookie':
+
             pass
         elif i=='redirected':
             pass
         elif i=='location':
+            pass
+        elif i=='expires':
+            pass
+        elif i=='www-authenticate':
+            pass
+        elif i=='x-content-security-policy':
             pass
         else:
             item.add(keys[i])
@@ -64,14 +71,28 @@ def getkeywordslocation(jsonobj):
     longitude=keys.get('location',{}).get('longitude','unknow')
     return city,latitude,longitude
 def keywordstojson(kewords):
-    item = kewords.replace('"', '')
-    item = item.replace(' u\'', ' \'')
+    result=None
+    try:
+        result=json.loads(kewords)
+    except Exception,e:
+        print e
+        item=None
+        item = delplacer(kewords)
+        print item
+        item=replace_quotation(item)
+        print item
+        item=replace_triplequotation(item)
+        print item
+        item=item.replace(" u'\\xdcr\\xfcmqi'", " u'unknow'")
+        item = item.replace('"', '\'')
 
-    item=item.replace('\'','"')
-    item=item.replace('\t','')
-    item=item.replace('none,','"none",')
-    print item
-    return json.loads(item)
+        item = item.replace(' u\'', ' \'')
+        print item
+        item=item.replace('\'','"')
+        item=item.replace('\t','')
+        item=item.replace('none,','"none",')
+        print item
+        return json.loads(item)
 def getkeyword(msg):
     if msg is None:
         return ['']
@@ -98,3 +119,65 @@ def getkeyword(msg):
     else:
 
         return msg
+def delplacer(msg):
+    regex="""u\"\w+\'\w+\""""
+    reobj = re.compile(regex)
+    match = reobj.search(msg)
+    if match:
+        result = match.group()
+    else:
+        result = ""
+    item=result
+    item=item.replace('\'','')
+    item=item.replace('\"','\'')
+
+    return msg.replace(result,item)
+def replace_quotation(msg):
+    regex="\"(.*?)\""
+    reobj = re.compile(regex)
+    match = reobj.findall(msg)
+    if match:
+        for i in match:
+
+            model = i
+            item = i.replace('\'', '')
+            msg=msg.replace(model, item)
+    else:
+        result = ""
+    return msg
+
+def replace_triplequotation(msg):
+    msg=replace_containlequotation(msg)
+    regex=": (\'.*?\".*?\".*?\')}"
+    reobj = re.compile(regex)
+    match = reobj.findall(msg)
+    if match:
+        for i in match:
+
+            model = i
+            if s
+            item = i.replace('\"', '')
+            msg=msg.replace(model, item)
+
+    regex = ": (\'.*?\".*?\".*?\'),"
+    reobj = re.compile(regex)
+    match = reobj.findall(msg)
+    if match:
+        for i in match:
+            model = i
+            item = i.replace('\"', '')
+            msg = msg.replace(model, item)
+    return msg
+def replace_containlequotation(msg):
+    regex="(\'\".*?\"\')"
+    reobj = re.compile(regex)
+    match = reobj.findall(msg)
+    if match:
+        for i in match:
+
+            model = i
+            item = i.replace('\"', '')
+            msg=msg.replace(model, item)
+
+
+    return msg
