@@ -137,6 +137,7 @@ class Connection(object):
             column_names = [d[0] for d in cursor.description]
             return [Row(itertools.izip(column_names, row)) for row in cursor]
         finally:
+            # pass
             cursor.close()
 
     def get(self, query, *parameters, **kwparameters):
@@ -166,6 +167,7 @@ class Connection(object):
             self._execute(cursor, query, parameters, kwparameters)
             return cursor.lastrowid
         finally:
+            pass
             cursor.close()
 
     def execute_rowcount(self, query, *parameters, **kwparameters):

@@ -6,38 +6,24 @@ from keras.optimizers import SGD
 from keras.preprocessing import text
 import  json,re
 from wordsutil import keywordsmg as KeywordsUtil
-# kewords="""{'frontend': [{'version': u'1.8.3.', 'type': 'jquery'}], 'language': ['php'], 'ip': ['120.24.54.128'], 'component': [{'version': '5.5.7', 'type': 'php'}], 'site': '120.24.54.128:80', 'headers': {'content-encoding': 'gzip', 'x-powered-by': 'php/5.5.7', 'transfer-encoding': 'chunked', 'set-cookie': 'phpmyadmin=nichkemnqavf60r88ccelcda4ab86sm5; path=/; httponly, pma_lang=en; expires=mon, 08-aug-2016 11:55:19 gmt; max-age=2592000; path=/; httponly, pma_mcrypt_iv=mgmgtfvyqxe%3d; expires=mon, 08-aug-2016 11:55:19 gmt; max-age=2592000; path=/; httponly, phpmyadmin=jevkc8kggkqd1ooer5ku505632g2jb35; path=/; httponly', 'expires': 'sat, 09 jul 2016 19:55:19 +0800', 'vary': 'accept-encoding', 'server': 'nginx/1.2.5', 'last-modified': 'sat, 09 jul 2016 19:55:19 +0800', 'connection': 'keep-alive', 'x-ob_mode': '0', 'pragma': 'no-cache', 'cache-control': 'no-store, no-cache, must-revalidate,  pre-check=0, post-check=0, max-age=0', 'date': 'sat, 09 jul 2016 11:55:19 gmt', 'x-frame-options': 'deny', 'x-content-security-policy': "default-src 'self' https://www.google.com ;options inline-script eval-script;img-src 'self' data:  *.tile.openstreetmap.org *.tile.opencyclemap.org https://www.google.com;", 'content-type': 'text/html; charset=utf-8', 'x-webkit-csp': "default-src 'self' https://www.google.com ;script-src 'self' https://www.google.com  'unsafe-inline' 'unsafe-eval';style-src 'self' 'unsafe-inline' https://www.google.com ;img-src 'self' data:  *.tile.openstreetmap.org *.tile.opencyclemap.org https://www.google.com;"}, 'geoip': {'city': {'name': u'beijing'}, 'location': {'latitude': 39.9289, 'longitude': 116.3883}, 'continent': {'code': u'as', 'name': u'asia'}, 'country': {'code': u'cn', 'name': u'china'}}}"""
-# lableary=KeywordsUtil.getkeyword(kewords)
+kewords="""{'language': ['jsp'], 'ip': ['125.35.24.151'], 'component': [{'version': '2.5', 'type': 'servlet'}, {'version': '2.1', 'type': 'jsp'}], 'site': '125.35.24.151:80', 'headers': {'Content-Location': '/index.jsp', 'Content-Language': 'zh-CN', 'X-Powered-By': 'Servlet/2.5 JSP/2.1', 'Transfer-Encoding': 'chunked', 'Set-Cookie': 'JSESSIONID=fwAAAQBQV4E9xEhikydAy07etEOPu0fR4eMA; path=/, NSC_Qpsubm_wjq=ffffffff0900e52745525d5f4f58455e445a4a423660;path=/;httponly', 'Keep-Alive': 'timeout=15, max=98', 'Server': 'Apusic Application Server/8.0 (Linux 2.6.32-431.el6.x86_64 amd64; JDK 1.6.0_24)', 'Connection': 'keep-alive', 'Date': 'Sat, 09 Jul 2016 18:09:08 GMT', 'Content-Type': 'text/html; charset=UTF-8'}, 'geoip': {'city': {'name': u'Beijing'}, 'location': {'latitude': 39.9289, 'longitude': 116.3883}, 'continent': {'code': u'AS', 'name': u'Asia'}, 'country': {'code': u'CN', 'name': u'China'}}}"""
 
-msg=""": 'sdfsd"sdf"sdfs'}"""
-regex=": (\'.*?(!\")\".*?\".*?\')}"
-reobj = re.compile(regex)
-match = reobj.findall(msg)
-if match:
-    for i in match:
-        print i
+lableary=KeywordsUtil.getkeyword(kewords)
+
+print ",".join(map(str, lableary))
+
+# {'language': ['aspnet'], 'ip': ['124.115.219.50'], 'component': [{'version': None, 'type': 'asp.net'}], 'site': '124.115.219.50:80', 'headers': {'Content-Length': '3697', 'X-AspNet-Version': '2.0.50727', 'Set-Cookie': 'ASP.NET_SessionId=5idecn55ejchlaalkwfm1ouk; path=/; HttpOnly', 'X-Powered-By': 'ASP.NET', 'Server': 'Microsoft-IIS/7.5', 'Cache-Control': 'private', 'Date': 'Mon, 11 Jul 2016 11:46:29 GMT', 'Content-Type': 'text/html; charset=gb2312'}, 'geoip': {'city': {'name': u"Xi'an"}, 'location': {'latitude': 34.2583, 'longitude': 108.9286}, 'continent': {'code': u'AS', 'name': u'Asia'}, 'country': {'code': u'CN', 'name': u'China'}}}
+
+# msg=""": 'basic realm="level_15 or view_access"', """
+# regex = ": (\'.*?\".*?\".*?\'),"
+# reobj = re.compile(regex)
+# match = reobj.findall(msg)
+# if match:
+#     for i in match:
+#         print i
 
 
 
-
-
-# size=db.get(sql)['count(*)']
-# for i in xrange(size):
-#     sql = 'select ip,port,keywords from testdata limit %d,1' % i
-#     result=db.get(sql)
-#     ip= result['ip']
-#     port=result['port']
-#     keywords=result['keywords']
-#     newwords= KeywordsUtil.getkeyword(str(keywords))
-#     print i, ip, port, keywords
-#
-#     newwords=",".join(map(str, newwords))
-#     print newwords
-#     sql ="update  testdata set label = '%s' where ip = '%s' and port = %s" %(newwords,ip,port)
-#     print sql
-#     result=db.execute(sql)
-#     if 0== result:
-#         print 'success'
 
 
 
