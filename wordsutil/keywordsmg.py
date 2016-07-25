@@ -146,6 +146,7 @@ def keywordstojson(kewords):
 def holelabel(msg):
     pass
 def getkeyword(msg):
+
     frontendset = set()
     componentset = set()
     languageset = set()
@@ -367,6 +368,19 @@ def getServer(msg):
         else:
             result.add(msg)
     return result
+def getHttpGenerate(msg):
+    result=set()
+
+    regex=" \'http-generator\': \'(.*?)\'"
+    reobj = re.compile(regex)
+    match = reobj.findall(msg)
+    if match:
+        for i in match:
+            return i
+    else:
+        return 'unknow'
+
+
 
 if __name__ == "__main__":
     # kewords = """{'ip': ['60.10.135.62'], 'geoip': {'city': {'name': u'hebei'}, 'location': {'latitude': 39.8897, 'longitude': 115.275}, 'continent': {'code': u'as', 'name': u'asia'}, 'country': {'code': u'cn', 'name': u'china'}}, 'component': [{'version': none, 'type': 'tomcat'}], 'site': '60.10.135.62:8080', 'headers': {'content-length': '339', 'accept-ranges': 'bytes', 'server': 'apache-coyote/1.1', 'last-modified': 'mon, 28 sep 2015 04:29:01 gmt', 'etag': 'w/"339-1443414541000"', 'date': 'sat, 09 jul 2016 10:29:16 gmt', 'content-type': 'text/html'}}"""

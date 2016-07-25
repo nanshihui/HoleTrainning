@@ -6,11 +6,20 @@ from keras.optimizers import SGD
 from keras.preprocessing import text
 import  json,re
 from wordsutil import keywordsmg as KeywordsUtil
-kewords="""{'language': ['jsp'], 'ip': ['125.35.24.151'], 'component': [{'version': '2.5', 'type': 'servlet'}, {'version': '2.1', 'type': 'jsp'}], 'site': '125.35.24.151:80', 'headers': {'Content-Location': '/index.jsp', 'Content-Language': 'zh-CN', 'X-Powered-By': 'Servlet/2.5 JSP/2.1', 'Transfer-Encoding': 'chunked', 'Set-Cookie': 'JSESSIONID=fwAAAQBQV4E9xEhikydAy07etEOPu0fR4eMA; path=/, NSC_Qpsubm_wjq=ffffffff0900e52745525d5f4f58455e445a4a423660;path=/;httponly', 'Keep-Alive': 'timeout=15, max=98', 'Server': 'Apusic Application Server/8.0 (Linux 2.6.32-431.el6.x86_64 amd64; JDK 1.6.0_24)', 'Connection': 'keep-alive', 'Date': 'Sat, 09 Jul 2016 18:09:08 GMT', 'Content-Type': 'text/html; charset=UTF-8'}, 'geoip': {'city': {'name': u'Beijing'}, 'location': {'latitude': 39.9289, 'longitude': 116.3883}, 'continent': {'code': u'AS', 'name': u'Asia'}, 'country': {'code': u'CN', 'name': u'China'}}}"""
+kewords="""{'http-methods': '\n  Supported Methods: GET HEAD POST OPTIONS', 'http-generator': 'Web2py Web Framework', 'http-server-header': 'Apache/2.2.15 (CentOS)', 'ssl-date': '2016-03-31T02:05:17+00:00; +3m38s from scanner time.', 'http-title': 'Welcome\nRequested resource was /welcome/default/index', 'sslv2': '\n  SSLv2 supported\n  ciphers: none', 'ssl-cert': 'Subject: commonName=www.geneu.com\nIssuer: commonName=Go Daddy Secure Certificate Authority - G2/organizationName=GoDaddy.com, Inc./stateOrProvinceName=Arizona/countryName=US\nPublic Key type: rsa\nPublic Key bits: 2048\nSignature Algorithm: sha256WithRSAEncryption\nNot valid before: 2015-09-04T06:31:38\nNot valid after:  2016-06-09T08:59:26\nMD5:   8269 7bef 8c05 edad 6125 e655 2729 0e8b\nSHA-1: da63 e276 631b ef2a 9157 f1ab 31a8 883b 745e 60f4'}"""
 
-lableary=KeywordsUtil.getkeyword(kewords)
+kewords="""askkldask,asjkd"""
 
-print ",".join(map(str, lableary))
+newwords, frontendset, componentset, languageset, headlabel, cityset, contentlength = KeywordsUtil.getkeyword(str(kewords))
+print newwords
+
+# try:
+#
+#     lableary=KeywordsUtil.getHttpGenerate(kewords)
+# except Exception,e:
+#     print e,1
+
+# print ",".join(map(str, lableary))
 
 # {'language': ['aspnet'], 'ip': ['124.115.219.50'], 'component': [{'version': None, 'type': 'asp.net'}], 'site': '124.115.219.50:80', 'headers': {'Content-Length': '3697', 'X-AspNet-Version': '2.0.50727', 'Set-Cookie': 'ASP.NET_SessionId=5idecn55ejchlaalkwfm1ouk; path=/; HttpOnly', 'X-Powered-By': 'ASP.NET', 'Server': 'Microsoft-IIS/7.5', 'Cache-Control': 'private', 'Date': 'Mon, 11 Jul 2016 11:46:29 GMT', 'Content-Type': 'text/html; charset=gb2312'}, 'geoip': {'city': {'name': u"Xi'an"}, 'location': {'latitude': 34.2583, 'longitude': 108.9286}, 'continent': {'code': u'AS', 'name': u'Asia'}, 'country': {'code': u'CN', 'name': u'China'}}}
 

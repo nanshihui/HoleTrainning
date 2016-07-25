@@ -14,17 +14,19 @@ def escapeword(word):
         return content
 def identifylabel():
     from DButil import db
-    sql='select count(*) from testdata '
+    sql="select count(*) from testdata "
     size=db.get(sql)['count(*)']
-    i=57254
+    i=0
     while i<size:
 
 
-        sql = 'select ip,port,keywords from testdata limit %d,1' % i
+        sql = "select ip,port,keywords,script from testdata  limit %d,1" % i
         result=db.get(sql)
         ip= result['ip']
         port=result['port']
         keywords=result['keywords']
+        script=result['script']
+        script=KeywordsUtil.getHttpGenerate(script)
         newwords,frontendset,componentset,languageset,headlabel,cityset,contentlength= KeywordsUtil.getkeyword(str(keywords))
         print i, ip, port, keywords
         newwords=",".join(map(str, newwords))
@@ -42,7 +44,7 @@ def identifylabel():
 
         print newwords
         try:
-            sql ="update  testdata set label = '%s' ,contentlength= '%s',headlabel= '%s',place= '%s',front= '%s',component= '%s',language= '%s' where ip = '%s' and port = %s" %(newwords,contentlength,headlabelmsg,cityset,frontendmsg,componentmsg,languagemsg,ip,port)
+            sql ="update  testdata set label = '%s' ,contentlength= '%s',headlabel= '%s',place= '%s',front= '%s',component= '%s',language= '%s',webapp='%s' where ip = '%s' and port = %s" %(newwords,contentlength,headlabelmsg,cityset,frontendmsg,componentmsg,languagemsg,script,ip,port)
             log.INFO(str(i)+'----'+str(ip)+'----'+str(port)+'----'+str(keywords))
             log.INFO(sql)
             result=db.execute(sql)
