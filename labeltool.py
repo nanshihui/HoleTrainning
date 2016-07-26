@@ -12,21 +12,21 @@ def escapeword(word):
         content=''
         content = str(MySQLdb.escape_string(word))
         return content
-def identifylabel():
+def identifylabel(table='traindata'):
     from DButil import db
-    sql="select count(*) from testdata "
+    sql='select count(*) from %s ' %table
     size=db.get(sql)['count(*)']
-    i=0
+    i=1837
     while i<size:
 
 
-        sql = "select ip,port,keywords,script from testdata  limit %d,1" % i
+        sql = "select ip,port,keywords,script from %s  limit %d,1" % (table,i)
         result=db.get(sql)
         ip= result['ip']
         port=result['port']
         keywords=result['keywords']
         script=result['script']
-        script=KeywordsUtil.getHttpGenerate(script)
+        script=KeywordsUtil.getHttpGenerate(str(script))
         newwords,frontendset,componentset,languageset,headlabel,cityset,contentlength= KeywordsUtil.getkeyword(str(keywords))
         print i, ip, port, keywords
         newwords=",".join(map(str, newwords))
@@ -44,7 +44,7 @@ def identifylabel():
 
         print newwords
         try:
-            sql ="update  testdata set label = '%s' ,contentlength= '%s',headlabel= '%s',place= '%s',front= '%s',component= '%s',language= '%s',webapp='%s' where ip = '%s' and port = %s" %(newwords,contentlength,headlabelmsg,cityset,frontendmsg,componentmsg,languagemsg,script,ip,port)
+            sql ="update  %s set label = '%s' ,contentlength= '%s',headlabel= '%s',place= '%s',front= '%s',component= '%s',language= '%s',webapp='%s' where ip = '%s' and port = %s" %(table,newwords,contentlength,headlabelmsg,cityset,frontendmsg,componentmsg,languagemsg,script,ip,port)
             log.INFO(str(i)+'----'+str(ip)+'----'+str(port)+'----'+str(keywords))
             log.INFO(sql)
             result=db.execute(sql)
@@ -62,13 +62,13 @@ def addwork():
     item=wordstask.getObject()
     for i in xrange(size):
         item.add_work([i])
-def getlabel():
+def getlabel(table='traindata'):
     lableary = {}
     from DButil import db
-    sql='select count(*) from testdata '
+    sql='select count(*) from %s ' % table
     size=db.get(sql)['count(*)']
     for i in xrange(size):
-        sql = 'select ip,port,label from testdata limit %d,1' % i
+        sql = 'select ip,port,label from %s limit %d,1' % (table,i)
         result=db.get(sql)
         ip= result['ip']
         port=result['port']
@@ -82,9 +82,9 @@ def getlabel():
                 else:
                     lableary[i] =lableary[i]+1
 
-    writefile(lableary)
-def writefile(lableary):
-    f = file('3.txt','w')
+    writefile(lableary,table)
+def writefile(lableary,table='traindata'):
+    f = file(table+'.txt','w')
     keyset=lableary.keys()
     for i in keyset:
         f.write(i+'------------------'+str(lableary[i])+'\n')

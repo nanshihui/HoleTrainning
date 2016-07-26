@@ -7,15 +7,15 @@ from wordsutil import log
 from wordsutil import keywordsmg as KeywordsUtil
 
 
-def identifylabel():
+def identifylabel(table='traindata'):
     from DButil import db
-    sql='select count(*) from testdata '
+    sql='select count(*) from %s ' %table
     size=db.get(sql)['count(*)']
     i=0
     while i<size:
 
 
-        sql = 'select ip,port,hackinfo from testdata limit %d,1' % i
+        sql = 'select ip,port,hackinfo from %s limit %d,1' % (table,i)
         result=db.get(sql)
         ip= result['ip']
         port=result['port']
@@ -37,7 +37,7 @@ def identifylabel():
 
         print newwords
         try:
-            sql ="update  testdata set label = '%s' ,contentlength= '%s',headlabel= '%s',place= '%s',front= '%s',component= '%s',language= '%s' where ip = '%s' and port = %s" %(newwords,contentlength,headlabelmsg,cityset,frontendmsg,componentmsg,languagemsg,ip,port)
+            sql ="update  %s set label = '%s' ,contentlength= '%s',headlabel= '%s',place= '%s',front= '%s',component= '%s',language= '%s' where ip = '%s' and port = %s" %(table,newwords,contentlength,headlabelmsg,cityset,frontendmsg,componentmsg,languagemsg,ip,port)
             log.INFO(str(i)+'----'+str(ip)+'----'+str(port)+'----'+str(keywords))
             log.INFO(sql)
             result=db.execute(sql)
