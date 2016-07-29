@@ -17,4 +17,4 @@ def getfile(path):
 	
 		f.write(word)
 	f.close()
-getfile('label.txt')
+getfile('component.txt')
