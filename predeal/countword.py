@@ -16,13 +16,14 @@ def getfile(path):
 			break;
 		print l
 		array=dealwiththeline(line)
-		if '\\n' in array:
+		if '\n' in array:
 
 			INFO(array)
 			INFO(line)
 
 		for i in array:
 			# print i
+			i=i.replace('\\n','')
 			if word.get(i,0)>0:
 				word[i]=word[i]+1
 			else:
@@ -33,7 +34,7 @@ def getfile(path):
 def dealwiththeline(line):
 	line=line.lower()
 	line=line.decode('string_escape')
-
+	
 	array=	re.split("[ {,:}'()\n\r\\\n\"]", line)
 	return array
 def test():
@@ -46,7 +47,7 @@ def sort_by_count(d):
 	d = collections.OrderedDict(sorted(d.items(), key = lambda t: -t[1]))  
 	return d  
 def writefile(word):
-	f = file('hzwords','w') 	
+	f = file('hzwords.txt','w') 	
 	for j in word:
 		f.write(j+','+str(word[j])+'\n')
 	f.close()
