@@ -15,7 +15,8 @@ def getfile(path):
 		if not line:
 			break;
 		print l
-		array=dealwiththeline(line)
+		array=getdicvalue(line)
+		# array=dealwiththeline(line)
 		if '\n' in array:
 
 			INFO(array)
@@ -41,13 +42,37 @@ def test():
 	line="""{'http-methods': '\\n  Supported Methods: OPTIONS TRACE GET HEAD POST\\n  Potentially risky methods: TRACE', 'http-title': '\\\\xE7\\\\xBD\\\\x91\\\\xE7\\\\xAB\\\\x99\\\\xE8\\\\xAE\\\\xBF\\\\xE9\\\\x97\\\\xAE\\\\xE6\\\\x8A\\\\xA5\\\\xE9\\\\x94\\\\x99', 'http-server-header': 'Microsoft-IIS/7.5', 'http-favicon': 'Unknown favicon MD5: 00E2A50F6C8EF4B07A731AC28F5A282F'}"""
 	array=dealwiththeline(line)
 	print array
-# test()
+
+
+def getdickey(line):
+	tmp=set()
+	regex = "'((?!')(?!,).*?)': '"  # 识别方法
+	reobj = re.compile(regex)
+	match = reobj.findall(line)
+	if match:
+		for i in match:
+			tmp.add(i)
+	return list(tmp)
+def getdicvalue(line):
+	tmp=set()
+	regex = ": '((?!').*?)'"  # 识别方法
+	reobj = re.compile(regex)
+	match = reobj.findall(line)
+	finalset=set()
+	if match:
+		for i in match:
+			tmp.add(i)
+	for each in tmp:
+		finalset|=set(dealwiththeline(each))
+	return list(finalset)
+
+
 def sort_by_count(d):  
 	#字典排序  
 	d = collections.OrderedDict(sorted(d.items(), key = lambda t: -t[1]))  
 	return d  
 def writefile(word):
-	f = file('hzwords.txt','w') 	
+	f = file('scrriptdicvalue.txt','w') 	
 	for j in word:
 		f.write(j+','+str(word[j])+'\n')
 	f.close()
