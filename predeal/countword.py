@@ -4,7 +4,7 @@ import sys
 sys.path.append("..")
 from BaseUtil.log import  INFO
 import re,collections
-def getfile(path):
+def getfile(path,func):
 	word={}
 	file1 = open (path)
 	temp=set()
@@ -15,7 +15,7 @@ def getfile(path):
 		if not line:
 			break;
 		print l
-		array=getdicvalue(line)
+		array=func(line)
 		# array=dealwiththeline(line)
 		if '\n' in array:
 
@@ -71,13 +71,31 @@ def sort_by_count(d):
 	#字典排序  
 	d = collections.OrderedDict(sorted(d.items(), key = lambda t: -t[1]))  
 	return d  
-def writefile(word):
-	f = file('scrriptdicvalue.txt','w') 	
+def writefile(word,filename):
+	f = file(filename,'w') 	
 	for j in word:
 		f.write(j+','+str(word[j])+'\n')
 	f.close()
-d=getfile('script.txt')
-d=sort_by_count(d)
-writefile(d)
+def dealwithwords(line):
+	line=line.lower()
+	line=line.decode('string_escape')
+	
+	array=	re.split("[ {,:}'()\n\r\\\n\"<>/]", line)
+	return array
+def scriptkeydeal():
+	d=getfile('script.txt',getdickey)
+	d=sort_by_count(d)
+	writefile(d,'scrriptdickey.txt')
+def scriptvaluedeal():
+	d=getfile('script.txt',getdicvalue)
+	d=sort_by_count(d)
+	writefile(d,'scrriptdicvalue.txt')
+def testi():
+	test()
+def detaildeal():
+	d=getfile('detail.txt',dealwithwords)
+	d=sort_by_count(d)
+	writefile(d,'detailwords.txt')
 
-# test()
+if __name__ == "__main__":
+	detaildeal()
