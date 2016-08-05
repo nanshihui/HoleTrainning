@@ -1,5 +1,6 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
+# 从数据库中读取字段,并降序排列到文本
 import sys
 sys.path.append("..")
 from DButil import db

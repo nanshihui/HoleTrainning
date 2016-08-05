@@ -1,5 +1,6 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
+# 读取分词按数量排序
 import sys
 sys.path.append("..")
 from BaseUtil.log import  INFO

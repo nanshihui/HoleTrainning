@@ -1,6 +1,7 @@
 
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
+# 从数据库读取攻击信息字段分词并转存到另一张表里
 import  json,re
 from wordsutil import log
 
