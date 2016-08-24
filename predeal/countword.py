@@ -79,8 +79,9 @@ def writefile(word,filename):
 	f.close()
 def dealwithwords(line):
 	line=line.lower()
-	line=line.decode('string_escape')
-	
+	# line=line.decode('string_escape')
+	import filetool
+	line=filetool.chineseout(line)
 	array=	re.split("[ {,:}'()\n\r\\\n\"<>/]", line)
 	return array
 def scriptkeydeal():
@@ -94,9 +95,9 @@ def scriptvaluedeal():
 def testi():
 	test()
 def detaildeal():
-	d=getfile('detail.txt',dealwithwords)
+	d=getfile('nohttpreal.txt',dealwithwords)
 	d=sort_by_count(d)
-	writefile(d,'detailwords.txt')
+	writefile(d,'detailwords_nohttp_real.txt')
 
 if __name__ == "__main__":
 	detaildeal()
