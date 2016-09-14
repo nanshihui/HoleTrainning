@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="40735c61-991c-40de-9407-baf7ab7da97e" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sdg.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/predeal/countword.py" afterPath="$PROJECT_DIR$/predeal/countword.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/predeal/filetool.py" afterPath="$PROJECT_DIR$/predeal/filetool.py" />
     </list>
     <ignored path="HoleTrainning.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -168,8 +165,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="40" />
-    <option name="y" value="79" />
+    <option name="x" value="43" />
+    <option name="y" value="45" />
     <option name="width" value="1221" />
     <option name="height" value="694" />
   </component>
@@ -217,7 +214,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -252,6 +248,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -601,7 +598,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="40" y="79" width="1221" height="694" extended-state="0" />
+    <frame x="43" y="45" width="1221" height="694" extended-state="0" />
     <editor active="false" />
     <layout>
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17608517" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
